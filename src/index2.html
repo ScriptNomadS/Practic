@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hollow Knight – Bohaterowie i Bossowie</title>
+  <meta name="description" content="Strona informacyjna o grze Hollow Knight: bohaterowie, bossowie, galeria oraz linki do społeczności." />
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#121923; --muted:#94a3b8; --text:#e5e7eb; --accent:#60a5fa; --accent-2:#22d3ee;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 20% 0%, #0e1622, #0b0f14), var(--bg);color:var(--text);}
+    a{color:var(--accent)}
+    header{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.8);backdrop-filter:blur(10px);border-bottom:1px solid #1f2937}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 24px rgba(34,211,238,.3)}
+    nav{display:flex;gap:18px;flex-wrap:wrap}
+    nav a{padding:8px 12px;border-radius:999px;text-decoration:none;border:1px solid #203043}
+    nav a:hover{background:#17202b}
+    .hero{padding:56px 0;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+    .hero h1{font-size:42px;line-height:1.1;margin:0 0 12px}
+    .hero p{color:var(--muted);margin:0 0 16px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:600;border:1px solid #203043}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081018;border:none;box-shadow:0 12px 32px rgba(96,165,250,.25)}
+    .btn.secondary{background:#111827}
+
+    section{padding:48px 0;border-top:1px solid #1f2937}
+    h2{font-size:28px;margin:0 0 12px}
+    .muted{color:var(--muted)}
+
+    
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .card img{width:100%;height:160px;object-fit:cover;display:block;background:#0a0f15}
+    .card .pad{padding:14px}
+    .chip{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #203043;color:var(--muted)}
+
+    
+    .boss-controls{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 18px}
+    .search{flex:1;min-width:240px}
+    .search input{width:100%;padding:12px 14px;border-radius:12px;background:#0d1520;border:1px solid #203043;color:var(--text)}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+    .tile{background:var(--card);border:1px solid #1f2937;border-radius:16px;overflow:hidden;transition:transform .15s ease}
+    .tile:hover{transform:translateY(-3px)}
+    .tile img{width:100%;height:140px;object-fit:cover;background:#0a0f15}
+    .tile .pad{padding:10px}
+    .tile h4{margin:0 0 6px;font-size:16px}
+    .tile p{margin:0;color:var(--muted);font-size:13px}
+
+    footer{padding:36px 0;color:var(--muted)}
+    .note{font-size:13px;margin-top:8px}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding:.2em .45em;border-radius:6px;border:1px solid #334155;color:#cbd5e1}
+    @media (max-width: 880px){.hero{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <div>
+          <strong>Hollow Knight – Wiki</strong><br/>
+          <span class="muted" style="font-size:13px">Bohaterowie • Bossowie • Galeria</span>
+        </div>
+      </div>
+      <nav aria-label="Główne menu">
+        <a href="#o-grze">O grze</a>
+        <a href="#bohaterowie">Bohaterowie</a>
+        <a href="#bossowie">Bossowie</a>
+        <a href="#galeria">Galeria</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" id="o-grze">
+      <div>
+        <h1>Witaj w Hallownest</h1>
+        <p><em>Hollow Knight</em></p>
+        <div class="cta">
+          <a class="btn primary" href="#bossowie">Zobacz wszystkich bossów</a>
+          <a class="btn secondary" href="#bohaterowie">Poznaj bohaterów</a>
+        </div>
+      </div>
+      <figure style="background:#0d1420;border:1px solid #1f2937;padding:12px;border-radius:16px;box-shadow:0 12px 30px rgba(2,6,23,.35)">
+        <img alt="Stylizowana grafika Hallownest (placeholder)" src="/Img/Map_Artwork.webp" style="display:block;width:100%;height:280px;object-fit:cover"/>
+        <figcaption class="muted" style="font-size:12px;margin-top:6px"></figcaption>
+      </figure>
+    </section>
+
+  
+    <section id="bohaterowie" class="container">
+      <h2>Bohaterowie</h2>
+      <p class="muted">Krótko o najważniejszych postaciach.</p>
+      <div class="cards">
+        <article class="card">
+          <img src="/Img/The_Knight_29.webp" alt="Rycerz (The Knight) – placeholder"/>
+          <div class="pad">
+            <div class="chip">Protagonista</div>
+            <h3 style="margin:10px 0 6px">The Knight</h3>
+            <p class="muted">Milczący wędrowiec władający pazurem. Odkrywa tajemnice Hallownest, zbierając moce i pieczętując zarazę.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="/Img/Hornet_Idle.webp" alt="Hornet – placeholder"/>
+          <div class="pad">
+            <div class="chip">Ważna postać</div>
+            <h3 style="margin:10px 0 6px">Hornet</h3>
+            <p class="muted">Zwinna wojowniczka z igłą i nicią. Chroni Hallownest, testując odwagę Rycerza.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="/Img/Quirrel-2.webp" alt="Quirrel – placeholder"/>
+          <div class="pad">
+            <div class="chip">Towarzysz</div>
+            <h3 style="margin:10px 0 6px">Quirrel</h3>
+            <p class="muted">Podróżnik z tajemniczą przeszłością. Dostarcza wskazówek i wglądu w historię królestwa.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="/Img/B_Grimm.png" alt="Troupe Master Grimm – placeholder"/>
+          <div class="pad">
+            <div class="chip">Wydarzenie</div>
+            <h3 style="margin:10px 0 6px">Troupe Master Grimm</h3>
+            <p class="muted">Przywódca trup teatralnych – enigmatyczny i potężny. Opcjonalny wątek.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <section id="bossowie" class="container">
+      <h2>Bossowie (wszyscy z podstawowej gry)</h2>
+      <p class="muted">Lista generuje się automatycznie z danych poniżej.</p>
+      <div class="boss-controls">
+        <div class="search"><input id="bossSearch" type="search" placeholder="Szukaj po nazwie..." aria-label="Szukaj bossów"/></div>
+        <button class="btn secondary" id="sortBtn" type="button">Sortuj A→Z</button>
+      </div>
+      <div id="bossGallery" class="gallery" aria-live="polite"></div>
+      <p class="note">Sugestia: jeśli dodasz tryb Godhome/Dream, dopisz warianty do opisu (np. „Soul Tyrant”, „Lost Kin”).</p>
+    </section>
+
+  <footer>
+    <div class="container">
+      <div>Strona internetowa: ScriptNomadS <br> Gra stworzona przez Team Cherry</span></div>
+    </div>
+  </footer>
+
+  <script>
+
+    const BOSSES = [
+      { name: 'False Knight', img: 'images/bosses/false-knight.jpg', desc: 'Zawładnięty pancerz – w City of Tears prowadzi do pierwszych wyzwań.' },
+      { name: 'Gruz Mother', img: 'images/bosses/gruz-mother.jpg', desc: 'Rozjuszona matka much – walka w Dirtmouth/Whispering Roots.' },
+      { name: 'Hornet (Protector)', img: 'images/bosses/hornet-protector.jpg', desc: 'Pierwsze starcie z Hornet w Greenpath.' },
+      { name: 'Hornet (Sentinel)', img: 'images/bosses/hornet-sentinel.jpg', desc: 'Drugie, trudniejsze starcie w Kingdom   s Edge.' },
+      { name: 'Mantis Lords', img: 'images/bosses/mantis-lords.jpg', desc: 'Trójka przywódczyń w Fungal Wastes – pojedynek na refleks.' },
+      { name: 'Soul Master', img: 'images/bosses/soul-master.jpg', desc: 'Władca Soul Sanctum posługujący się magią dusz.' },
+      { name: 'Dung Defender', img: 'images/bosses/dung-defender.jpg', desc: 'Rycerz ścieków – energiczny i honorowy.' },
+      { name: 'Broken Vessel', img: 'images/bosses/broken-vessel.jpg', desc: 'Upadły pobratymiec Rycerza, opętany infekcją.' },
+      { name: 'Nosk', img: 'images/bosses/nosk.jpg', desc: 'Przybiera znajome kształty, by zwabić przeciwnika.' },
+      { name: 'Watcher Knights', img: 'images/bosses/watcher-knights.jpg', desc: 'Strażnicy wieży – walka z wieloma przeciwnikami naraz.' },
+      { name: 'Uumuu', img: 'images/bosses/uumuu.jpg', desc: 'Amorficzna istota w Fog Canyon, wrażliwa po przebiciu osłony.' },
+      { name: 'Traitor Lord', img: 'images/bosses/traitor-lord.jpg', desc: 'Upadły władca Mantyd – brutalny i szybki.' },
+      { name: 'Crystal Guardian', img: 'images/bosses/crystal-guardian.jpg', desc: 'Strzela promieniami z kryształów w Crystal Peak.' },
+      { name: 'Enraged Guardian', img: 'images/bosses/enraged-guardian.jpg', desc: 'Silniejsza wersja Crystal Guardiana.' },
+      { name: 'Watcher – Lurien (Dreamer)', img: 'images/bosses/lurien.jpg', desc: 'Jeden z Dreamers; element głównej fabuły.' },
+      { name: 'Teacher – Monomon (Dreamer)', img: 'images/bosses/monomon.jpg', desc: 'Drugi z Dreamers; powiązana walka z Uumuu.' },
+      { name: 'Beast – Herrah (Dreamer)', img: 'images/bosses/herrah.jpg', desc: 'Trzecia z Dreamers; związana z Hornet.' },
+      { name: 'Soul Warrior', img: 'images/bosses/soul-warrior.jpg', desc: 'Mini-boss z Soul Sanctum.' },
+      { name: 'Massive Moss Charger', img: 'images/bosses/massive-moss-charger.jpg', desc: 'Ogromna bestia z Greenpath.' },
+      { name: 'Flukemarm', img: 'images/bosses/flukemarm.jpg', desc: 'Matka Fluków – ciasna arena.' },
+      { name: 'Brooding Mawlek', img: 'images/bosses/brooding-mawlek.jpg', desc: 'Plujący potwór z Crossroads.' },
+      { name: 'Gorb (Dream Warrior)', img: 'images/bosses/gorb.jpg', desc: 'Wojownik snu – pojedynek na uniki.' },
+      { name: 'Xero (Dream Warrior)', img: 'images/bosses/xero.jpg', desc: 'Wojownik snu z wirującymi ostrzami.' },
+      { name: 'Elder Hu (Dream Warrior)', img: 'images/bosses/elder-hu.jpg', desc: 'Wojownik snu – fale uderzeniowe.' },
+      { name: 'Marmu (Dream Warrior)', img: 'images/bosses/marmu.jpg', desc: 'Wojownik snu – zaskakująco zwinny.' },
+      { name: 'Galien (Dream Warrior)', img: 'images/bosses/galien.jpg', desc: 'Wojownik snu – orbitujące bronie.' },
+      { name: 'No Eyes (Dream Warrior)', img: 'images/bosses/no-eyes.jpg', desc: 'Wojownik snu – mgła i platformy.' },
+      { name: 'Markoth (Dream Warrior)', img: 'images/bosses/markoth.jpg', desc: 'Wojownik snu – tarcze i igły.' },
+      { name: 'Grey Prince Zote', img: 'images/bosses/grey-prince-zote.jpg', desc: 'Wyobrażona, przerysowana wersja Zote.' },
+      { name: 'The Collector', img: 'images/bosses/collector.jpg', desc: 'Tajemnicza istota zamykająca owady w słoikach.' },
+      { name: 'Troupe Master Grimm', img: 'images/bosses/grimm.jpg', desc: 'Przywódca trupy; walka rytmiczna.' },
+      { name: 'Nightmare King Grimm', img: 'images/bosses/nightmare-king-grimm.jpg', desc: 'Wersja koszmarna – bardzo trudna.' },
+      { name: 'God Tamer', img: 'images/bosses/god-tamer.jpg', desc: 'Cyrkowy mistrz wraz z bestią.' },
+      { name: 'Hive Knight', img: 'images/bosses/hive-knight.jpg', desc: 'Obrońca ula w The Hive.' },
+      { name: 'Watcher Knights (rematch)', img: 'images/bosses/watcher-knights-2.jpg', desc: 'Powtórne starcie – opcjonalne.' }
+    ];
+
+
+    const gallery = document.getElementById('bossGallery');
+    const search = document.getElementById('bossSearch');
+    const sortBtn = document.getElementById('sortBtn');
+    let asc = true;
+
+    function render(list){
+      gallery.innerHTML = '';
+      list.forEach(b => {
+        const fig = document.createElement('figure');
+        fig.className = 'tile';
+        fig.innerHTML = `
+          <img loading="lazy" src="${b.img}" alt="${b.name} – obraz (placeholder)" onerror="this.src='images/placeholder-boss.jpg'"/>
+          <figcaption class="pad">
+            <h4>${b.name}</h4>
+            <p>${b.desc || ''}</p>
+          </figcaption>`;
+        gallery.appendChild(fig);
+      });
+    }
+
+    function filterAndRender(){
+      const q = (search.value || '').toLowerCase();
+      const base = [...BOSSES];
+      base.sort((a,b)=> asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+      const filtered = base.filter(b => b.name.toLowerCase().includes(q));
+      render(filtered);
+    }
+
+    search.addEventListener('input', filterAndRender);
+    sortBtn.addEventListener('click', () => { asc = !asc; sortBtn.textContent = asc ? 'Sortuj A→Z' : 'Sortuj Z→A'; filterAndRender(); });
+
+
+    filterAndRender();
+  </script>
+</body>
+</html>
