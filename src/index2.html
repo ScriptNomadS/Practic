@@ -1,76 +1,325 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hollow Knight – Bohaterowie i Bossowie</title>
-  <meta name="description" content="Strona informacyjna o grze Hollow Knight: bohaterowie, bossowie, galeria oraz linki do społeczności." />
+  <title>Hollow Knight – Bohaterowie, Bossowie, Amulety, Panteony</title>
+  <meta name="description"
+    content="Strona informacyjna o grze Hollow Knight: bohaterowie, bossowie, amulety, panteony, koloseum, galeria oraz lore." />
   <style>
-    :root{
-      --bg:#0b0f14; --card:#121923; --muted:#94a3b8; --text:#e5e7eb; --accent:#60a5fa; --accent-2:#22d3ee;
+    :root {
+      --bg: #0b0f14;
+      --card: #121923;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #60a5fa;
+      --accent-2: #22d3ee;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1000px 500px at 20% 0%, #0e1622, #0b0f14), var(--bg);color:var(--text);}
-    a{color:var(--accent)}
-    header{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.8);backdrop-filter:blur(10px);border-bottom:1px solid #1f2937}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand-logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 24px rgba(34,211,238,.3)}
-    nav{display:flex;gap:18px;flex-wrap:wrap}
-    nav a{padding:8px 12px;border-radius:999px;text-decoration:none;border:1px solid #203043}
-    nav a:hover{background:#17202b}
-    .hero{padding:56px 0;display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
-    .hero h1{font-size:42px;line-height:1.1;margin:0 0 12px}
-    .hero p{color:var(--muted);margin:0 0 16px}
-    .cta{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:600;border:1px solid #203043}
-    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#081018;border:none;box-shadow:0 12px 32px rgba(96,165,250,.25)}
-    .btn.secondary{background:#111827}
 
-    section{padding:48px 0;border-top:1px solid #1f2937}
-    h2{font-size:28px;margin:0 0 12px}
-    .muted{color:var(--muted)}
+    * {
+      box-sizing: border-box
+    }
 
-    
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
-    .card{background:var(--card);border:1px solid #1f2937;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    .card img{width:100%;height:160px;object-fit:cover;display:block;background:#0a0f15}
-    .card .pad{padding:14px}
-    .chip{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid #203043;color:var(--muted)}
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(1000px 500px at 20% 0%, #0e1622, #0b0f14), var(--bg);
+      color: var(--text);
+    }
 
-    
-    .boss-controls{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 18px}
-    .search{flex:1;min-width:240px}
-    .search input{width:100%;padding:12px 14px;border-radius:12px;background:#0d1520;border:1px solid #203043;color:var(--text)}
-    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
-    .tile{background:var(--card);border:1px solid #1f2937;border-radius:16px;overflow:hidden;transition:transform .15s ease}
-    .tile:hover{transform:translateY(-3px)}
-    .tile img{width:100%;height:140px;object-fit:cover;background:#0a0f15}
-    .tile .pad{padding:10px}
-    .tile h4{margin:0 0 6px;font-size:16px}
-    .tile p{margin:0;color:var(--muted);font-size:13px}
+    a {
+      color: var(--accent)
+    }
 
-    footer{padding:36px 0;color:var(--muted)}
-    .note{font-size:13px;margin-top:8px}
-    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding:.2em .45em;border-radius:6px;border:1px solid #334155;color:#cbd5e1}
-    @media (max-width: 880px){.hero{grid-template-columns:1fr}}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 15, 20, .8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1f2937
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 8px 24px rgba(34, 211, 238, .3)
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid #203043
+    }
+
+    nav a:hover {
+      background: #17202b
+    }
+
+    .hero {
+      padding: 56px 0;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 24px;
+      align-items: center
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin: 0 0 12px
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin: 0 0 16px
+    }
+
+    .cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid #203043
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #081018;
+      border: none;
+      box-shadow: 0 12px 32px rgba(96, 165, 250, .25)
+    }
+
+    .btn.secondary {
+      background: #111827
+    }
+
+    section {
+      padding: 48px 0;
+      border-top: 1px solid #1f2937
+    }
+
+    h2 {
+      font-size: 28px;
+      margin: 0 0 12px
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid #1f2937;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .25)
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      background: #0a0f15
+    }
+
+    .card .pad {
+      padding: 14px
+    }
+
+    .chip {
+      display: inline-block;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #203043;
+      color: var(--muted)
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 8px 0 18px
+    }
+
+    .search {
+      flex: 1;
+      min-width: 240px
+    }
+
+    .search input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #0d1520;
+      border: 1px solid #203043;
+      color: var(--text)
+    }
+
+    .select select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #0d1520;
+      border: 1px solid #203043;
+      color: var(--text)
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px
+    }
+
+    .tile {
+      background: var(--card);
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform .15s ease
+    }
+
+    .tile:hover {
+      transform: translateY(-3px)
+    }
+
+    .tile img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      background: #0a0f15
+    }
+
+    .tile .pad {
+      padding: 10px
+    }
+
+    .tile h4 {
+      margin: 0 0 6px;
+      font-size: 16px
+    }
+
+    .tile p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      overflow: hidden
+    }
+
+    .table th,
+    .table td {
+      padding: 12px;
+      border-bottom: 1px solid #1f2937;
+      text-align: left
+    }
+
+    .note {
+      font-size: 13px;
+      margin-top: 8px
+    }
+
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      padding: .2em .45em;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      color: #cbd5e1
+    }
+
+    details {
+      background: var(--card);
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 14px
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      margin: -6px -6px 8px;
+      padding: 6px;
+      border-radius: 10px
+    }
+
+    details[open] summary {
+      background: #0f172a
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px">
       <div class="brand">
         <div class="brand-logo" aria-hidden="true"></div>
         <div>
-          <strong>Hollow Knight – Wiki</strong><br/>
-          <span class="muted" style="font-size:13px">Bohaterowie • Bossowie • Galeria</span>
+          <strong>Hollow Knight – Wiki</strong><br />
+          <span class="muted" style="font-size:13px">Bohaterowie • Bossowie • Amulety • Panteony • Koloseum •
+            Lore</span>
         </div>
       </div>
       <nav aria-label="Główne menu">
         <a href="#o-grze">O grze</a>
         <a href="#bohaterowie">Bohaterowie</a>
         <a href="#bossowie">Bossowie</a>
-        <a href="#galeria">Galeria</a>
+        <a href="#amulety">Amulety</a>
+        <a href="#panteony">Panteony</a>
+        <a href="#koloseum">Koloseum</a>
+        <a href="#lore">Lore</a>
       </nav>
     </div>
   </header>
@@ -85,27 +334,30 @@
           <a class="btn secondary" href="#bohaterowie">Poznaj bohaterów</a>
         </div>
       </div>
-      <figure style="background:#0d1420;border:1px solid #1f2937;padding:12px;border-radius:16px;box-shadow:0 12px 30px rgba(2,6,23,.35)">
-        <img alt="Stylizowana grafika Hallownest (placeholder)" src="/Img/Map_Artwork.webp" style="display:block;width:100%;height:280px;object-fit:cover"/>
+      <figure
+        style="background:#0d1420;border:1px solid #1f2937;padding:12px;border-radius:16px;box-shadow:0 12px 30px rgba(2,6,23,.35)">
+        <img alt="Stylizowana grafika Hallownest (placeholder)" src="/Img/Map_Artwork.webp"
+          style="display:block;width:100%;height:280px;object-fit:cover" />
         <figcaption class="muted" style="font-size:12px;margin-top:6px"></figcaption>
       </figure>
     </section>
 
-  
+    <!-- BOHATEROWIE -->
     <section id="bohaterowie" class="container">
       <h2>Bohaterowie</h2>
       <p class="muted">Krótko o najważniejszych postaciach.</p>
       <div class="cards">
         <article class="card">
-          <img src="/Img/The_Knight_29.webp" alt="Rycerz (The Knight) – placeholder"/>
+          <img src="/Img/The_Knight_29.webp" alt="Rycerz (The Knight) – placeholder" />
           <div class="pad">
             <div class="chip">Protagonista</div>
             <h3 style="margin:10px 0 6px">The Knight</h3>
-            <p class="muted">Milczący wędrowiec władający pazurem. Odkrywa tajemnice Hallownest, zbierając moce i pieczętując zarazę.</p>
+            <p class="muted">Milczący wędrowiec władający pazurem. Odkrywa tajemnice Hallownest, zbierając moce i
+              pieczętując zarazę.</p>
           </div>
         </article>
         <article class="card">
-          <img src="/Img/Hornet_Idle.webp" alt="Hornet – placeholder"/>
+          <img src="/Img/Hornet_Idle.webp" alt="Hornet – placeholder" />
           <div class="pad">
             <div class="chip">Ważna postać</div>
             <h3 style="margin:10px 0 6px">Hornet</h3>
@@ -113,7 +365,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="/Img/Quirrel-2.webp" alt="Quirrel – placeholder"/>
+          <img src="/Img/Quirrel-2.webp" alt="Quirrel – placeholder" />
           <div class="pad">
             <div class="chip">Towarzysz</div>
             <h3 style="margin:10px 0 6px">Quirrel</h3>
@@ -121,7 +373,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="/Img/B_Grimm.png" alt="Troupe Master Grimm – placeholder"/>
+          <img src="/Img/B_Grimm.png" alt="Troupe Master Grimm – placeholder" />
           <div class="pad">
             <div class="chip">Wydarzenie</div>
             <h3 style="margin:10px 0 6px">Troupe Master Grimm</h3>
@@ -131,29 +383,109 @@
       </div>
     </section>
 
-
+    <!-- BOSSOWIE -->
     <section id="bossowie" class="container">
       <h2>Bossowie (wszyscy z podstawowej gry)</h2>
       <p class="muted">Lista generuje się automatycznie z danych poniżej.</p>
-      <div class="boss-controls">
-        <div class="search"><input id="bossSearch" type="search" placeholder="Szukaj po nazwie..." aria-label="Szukaj bossów"/></div>
-        <button class="btn secondary" id="sortBtn" type="button">Sortuj A→Z</button>
+      <div class="controls">
+        <div class="search"><input id="bossSearch" type="search" placeholder="Szukaj po nazwie..."
+            aria-label="Szukaj bossów" /></div>
+        <button class="btn secondary" id="sortBtn" type="button" aria-live="polite">Sortuj A→Z</button>
       </div>
       <div id="bossGallery" class="gallery" aria-live="polite"></div>
     </section>
 
+    <!-- AMULETY -->
+    <section id="amulety" class="container">
+      <h2>Amulety</h2>
+      <p class="muted">Filtruj po nazwie i sortuj wg kosztu szczeliny (Notch).</p>
+      <div class="controls">
+        <div class="search"><input id="charmSearch" type="search" placeholder="Szukaj amuletu..."
+            aria-label="Szukaj amuletów" /></div>
+        <div class="select">
+          <select id="charmSort" aria-label="Sortowanie amuletów">
+            <option value="name-asc">Nazwa A→Z</option>
+            <option value="name-desc">Nazwa Z→A</option>
+            <option value="cost-asc">Koszt rosnąco</option>
+            <option value="cost-desc">Koszt malejąco</option>
+          </select>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="charmFragile" /> Pokaż tylko
+          Kruche/Delikatne</label>
+      </div>
+      <div id="charmGallery" class="gallery" aria-live="polite"></div>
+      <p class="note">Podpowiedź: amulety montuje się na ławkach (<span class="kbd">Benches</span>), a liczba
+        <em>Notches</em> ogranicza build.</p>
+    </section>
+
+    <!-- PANTEONY -->
+    <section id="panteony" class="container">
+      <h2>Panteony (Godmaster)</h2>
+      <p class="muted">Zestawienia walk w Bieli Bogów. Kliknij, aby zobaczyć opis.</p>
+      <div id="pantheonList" class="cards" aria-live="polite"></div>
+    </section>
+
+    <!-- KOLOSEUM -->
+    <section id="koloseum" class="container">
+      <h2>Koloseum Głupców</h2>
+      <p class="muted">Trzy próby o rosnącym poziomie trudności. Nagrody i krótkie uwagi.</p>
+      <div class="table-wrap">
+        <table class="table" aria-describedby="koloseum-desc">
+          <thead>
+            <tr>
+              <th>Próba</th>
+              <th>Opis</th>
+              <th>Nagroda</th>
+              <th>Uwagi</th>
+            </tr>
+          </thead>
+          <tbody id="colosseumTbody"></tbody>
+        </table>
+        <p id="koloseum-desc" class="note">Wskazówka: fale wrogów mają ustaloną kolejność; ćwicz ruch i pozycjonowanie.
+        </p>
+      </div>
+    </section>
+
+    <!-- LORE -->
+    <section id="lore" class="container">
+      <h2>Lore (skrót i bez ciężkich spoilerów)</h2>
+      <details>
+        <summary>Rozwiń skrót fabuły i tła świata</summary>
+        <p class="muted" style="margin-top:8px">
+          Hallownest było potężnym królestwem owadów pod rządami Pale Kinga. Aby powstrzymać rozprzestrzeniającą się
+          Infekcję pochodzącą od Radiance,
+          stworzono <em>Wazony</em> – puste naczynia pozbawione woli. Jeden z nich, znany nam jako Rycerz, wraca do
+          zrujnowanego królestwa,
+          by przerwać pieczęcie, skonfrontować się z przeszłością i (w zależności od wyborów gracza) przywrócić pieczęć,
+          oczyścić zarazę,
+          lub… pozwolić komuś innemu przejąć brzemię.
+        </p>
+        <ul class="muted">
+          <li><strong>Dreamers</strong> (Monomon, Lurien, Herrah) podtrzymują pieczęć Świątyni Czarnego Jaja.</li>
+          <li><strong>Radiance</strong> to dawne bóstwo świetliste, źródło Infekcji poprzez sny i pamięć.</li>
+          <li><strong>Void</strong> i Naczynia są kluczem do “czystości” – braku więzi, które Radiance mogłaby poruszyć.
+          </li>
+          <li><strong>Godseeker</strong> oraz <em>Godhome</em> (DLC) reinterpretują walki jako próby boskości.</li>
+        </ul>
+        <p class="note">Pełne zakończenia: <em>The Hollow Knight</em>, <em>Sealed Siblings</em>, <em>Dream No More</em>,
+          <em>Godmaster</em> (warianty po Panteonach).</p>
+      </details>
+    </section>
+  </main>
+
   <footer>
     <div class="container">
-      <div>Strona internetowa: ScriptNomadS \|/ Console.log <br> Gra stworzona przez Team Cherry</span></div>
+      <div>Strona internetowa: ScriptNomadS \|/ Console.log <br> Gra stworzona przez Team Cherry</div>
     </div>
   </footer>
+
   <script>
- 
+    /* ===== Dane ===== */
     const BOSSES = [
-      { name: 'False Knight', img: '../Img/B_False_Knight.webp', desc: 'Zawładnięty pancerz – w City of Tears prowadzi do pierwszych wyzwań.' },
-      { name: 'Gruz Mother', img: '../Img/Gruz_Mother_Awake.webp', desc: 'Rozjuszona matka much – walka w Dirtmouth/Whispering Roots.' },
+      { name: 'False Knight', img: '../Img/B_False_Knight.webp', desc: 'Zawładnięty pancerz – pierwsze większe wyzwanie w Crossroads.' },
+      { name: 'Gruz Mother', img: '../Img/Gruz_Mother_Awake.webp', desc: 'Rozjuszona matka much w Forgotten Crossroads.' },
       { name: 'Hornet (Protector)', img: '../Img/Hornet_Idle.webp', desc: 'Pierwsze starcie z Hornet w Greenpath.' },
-      { name: 'Hornet (Sentinel)', img: '../Img/B_Hornet2.webp', desc: 'Drugie, trudniejsze starcie w Kingdom   s Edge.' },
+      { name: 'Hornet (Sentinel)', img: '../Img/B_Hornet2.webp', desc: 'Drugie, trudniejsze starcie w Kingdom’s Edge.' },
       { name: 'Mantis Lords', img: '../Img/B_Mantis_Lords-2.webp', desc: 'Trójka przywódczyń w Fungal Wastes – pojedynek na refleks.' },
       { name: 'Soul Master', img: '../Img/B_Soulmaster.webp', desc: 'Władca Soul Sanctum posługujący się magią dusz.' },
       { name: 'Dung Defender', img: '../Img/B_Dung_Defender.png', desc: 'Rycerz ścieków – energiczny i honorowy.' },
@@ -164,43 +496,166 @@
       { name: 'Traitor Lord', img: '../Img/B_Traitor_Lord.webp', desc: 'Upadły władca Mantyd – brutalny i szybki.' },
       { name: 'Crystal Guardian', img: '../Img/B_Crystal_Guardian.webp', desc: 'Strzela promieniami z kryształów w Crystal Peak.' },
       { name: 'Enraged Guardian', img: '../Img/Crystal_Guardian_idle.png', desc: 'Silniejsza wersja Crystal Guardiana.' },
-      { name: 'Watcher – Lurien (Dreamer)', img: '../Img/B_Lurien.png', desc: 'Jeden z Dreamers; element głównej fabuły.' }, 
+      { name: 'Watcher – Lurien (Dreamer)', img: '../Img/B_Lurien.png', desc: 'Jeden z Dreamers; element głównej fabuły.' },
     ];
 
+    const CHARMS = [
+      { name: 'Wayward Compass', cost: 1, tag: 'utility', img: '../Img/charms/Wayward_Compass.webp', desc: 'Pokazuje pozycję na mapie.' },
+      { name: 'Gathering Swarm', cost: 1, tag: 'utility', img: '../Img/charms/Gathering_Swarm.webp', desc: 'Zbieranie Geo przez roje.' },
+      { name: 'Stalwart Shell', cost: 2, tag: 'combat', img: '/../Img/charms/Stalwart_Shell.webp', desc: 'Dłuższa nieśmiertelność po trafieniu.' },
+      { name: 'Soul Catcher', cost: 2, tag: 'soul', img: '../Img/charms/Soul_Catcher.png', desc: 'Więcej Duszy z trafień.' },
+      { name: 'Soul Eater', cost: 4, tag: 'soul', img: '../Img/charms/Soul_Eater.webp', desc: 'Dużo więcej Duszy z trafień.' },
+      { name: 'Shaman Stone', cost: 3, tag: 'spell', img: '../Img/charms/Shaman_Stone.webp', desc: 'Silniejsze zaklęcia.' },
+      { name: 'Quick Focus', cost: 3, tag: 'focus', img: '../Img/charms/Quick_Focus.webp', desc: 'Szybsze leczenie.' },
+      { name: 'Deep Focus', cost: 4, tag: 'focus', img: '../Img/charms/Deep_Focus.webp', desc: 'Leczy 2 maski, ale wolniej.' },
+      { name: 'Fragile Heart', cost: 2, tag: 'fragile', img: '../Img/charms/Fragile_Heart.png', desc: 'Więcej zdrowia, ale łamliwy.' },
+      { name: 'Fragile Strength', cost: 3, tag: 'fragile', img: '../Img/charms/Fragile_Strength.webp', desc: 'Większe obrażenia, ale łamliwy.' },
+      { name: 'Unbreakable Heart', cost: 2, tag: 'upgrade', img: '../Img/charms/Unbreakable_Heart.webp', desc: 'Trwała wersja Fragile Heart.' },
+      { name: 'Unbreakable Greed', cost: 2, tag: 'upgrade', img: '../Img/charms/Unbreakable_Greed.webp', desc: 'Trwała wersja Fragile Greed.' },
+      { name: 'Unbreakable Strength', cost: 3, tag: 'upgrade', img: '../Img/charms/Unbreakable_Strength.webp', desc: 'Trwała wersja Fragile Strength.' },
+      { name: 'Mark of Pride', cost: 3, tag: 'nail', img: '../Img/charms/Mark_of_Pride.webp', desc: 'Większy zasięg Pazura.' },
+      { name: 'Longnail', cost: 2, tag: 'nail', img: '../Img/charms/Longnail.webp', desc: 'Dłuższy zasięg Pazura.' },
+      { name: 'Dashmaster', cost: 2, tag: 'movement', img: '../Img/charms/Dashmaster.webp', desc: 'Szybszy dash, dash w dół.' },
+      { name: 'Sprintmaster', cost: 1, tag: 'movement', img: '../Img/charms/Sprintmaster.webp', desc: 'Szybsze bieganie.' },
+      { name: 'Thorns of Agony', cost: 2, tag: 'combat', img: '../Img/charms/Thorns_of_Agony.webp', desc: 'Ciernie po otrzymaniu obrażeń.' },
+      { name: 'Grubsong', cost: 1, tag: 'soul', img: '../Img/charms/Grubsong.webp', desc: 'Dusza po otrzymaniu obrażeń.' },
+      { name: 'Quick Slash', cost: 3, tag: 'nail', img: '../Img/charms/Quick_Slash.webp', desc: 'Szybsze wymachiwanie Pazurem.' },
+      { name: 'Hiveblood', cost: 4, tag: 'defense', img: '../Img/charms/Hiveblood.webp', desc: 'Powolna regeneracja ostatniej maski.' },
+      { name: 'Sharp Shadow', cost: 2, tag: 'movement', img: '../Img/charms/Sharp_Shadow.webp', desc: 'Dash zadaje obrażenia.' },
+      { name: 'Kingsoul', cost: 5, tag: 'endgame', img: '../Img/charms/Kingsoul.webp', desc: 'Powolna pasywna regeneracja Duszy; prowadzi do Void Heart.' },
+      { name: 'Void Heart', cost: 0, tag: 'endgame', img: '../Img/charms/Void_Heart.webp', desc: 'Klucz fabularny; zmienia interakcje i zakończenia.' },
+    ];
 
+    const PANTHEONS = [
+      { title: 'Panteon Mistrzów', img: '../Img/pantheons/200px-Pantheon_of_the_Sage.png', bosses: 'Vengefly King • Gruz Mother • False Knight • Hornet (Protector) • Massive Moss Charger • …', desc: 'Wejście do rytuału bogów; podstawowe próby i rozgrzewka.' },
+      { title: 'Panteon Artystów', img: '../Img/pantheons/Pantheon_of_the_Artist.webp', bosses: 'Xero • Crystal Guardian • Soul Master • Oblobbles • Mantis Lords • …', desc: 'Nacisk na precyzję ruchu i kontrolę areny.' },
+      { title: 'Panteon Mędrców', img: '../Img/pantheons/Pantheon_of_the_Master.webp', bosses: 'Great Nailsage Sly • Uumuu (z Quirrel) • Watcher Knights • …', desc: 'Tempo i zarządzanie zasobami Duszy.' },
+      { title: 'Panteon Rycerzy', img: '../Img/pantheons/200px-Pantheon_of_the_Sage.png', bosses: 'Nosk (True) • Enraged Guardian • Hornet (Sentinel) • …', desc: 'Wysoka intensywność; test znajomości wzorców.' },
+      { title: 'Panteon Hallownest', img: '../Img/pantheons/Pantheon_of_the_Artist.webp', bosses: 'Wszyscy poprzedni • Absolutny Radiance (wariant)', desc: 'Kulminacja (no-hit maraton marzeń). Najtrudniejsza próba.' },
+    ];
+
+    const COLOSSEUM = [
+      { trial: 'Próba Wojownika', reward: '~1000 Geo + pieczęć Paleoreliquii', note: 'Dobra na start – ucz się kontroli powietrza.', desc: 'Pierwsza seria fal; podstawowe kombinacje wrogów.' },
+      { trial: 'Próba Zdobywcy', reward: '~2000 Geo + kawałek Maski', note: 'Sporo kolców i platform.', desc: 'Bardziej techniczne fale, pułapki i latanie.' },
+      { trial: 'Próba Bossa', reward: '~3000 Geo + Rytualne trofea', note: 'Wersje elitarne oraz dłuższe fale.', desc: 'Najtrudniejsza rotacja, wymagane solidne buildy.' },
+    ];
+
+    /* ===== Bossowie: render + filtr ===== */
     const gallery = document.getElementById('bossGallery');
     const search = document.getElementById('bossSearch');
     const sortBtn = document.getElementById('sortBtn');
     let asc = true;
 
-    function render(list){
-      gallery.innerHTML = '';
+    function renderTileList(target, list) {
+      target.innerHTML = '';
       list.forEach(b => {
         const fig = document.createElement('figure');
         fig.className = 'tile';
+        const safeImg = b.img || 'images/placeholder-boss.jpg';
         fig.innerHTML = `
-          <img loading="lazy" src="${b.img}" alt="${b.name} – obraz (placeholder)" onerror="this.src='images/placeholder-boss.jpg'"/>
+          <img loading="lazy" src="${safeImg}" alt="${b.name} – obraz" onerror="this.src='images/placeholder-boss.jpg'"/>
           <figcaption class="pad">
-            <h4>${b.name}</h4>
+            <h4>${b.name || b.title}</h4>
             <p>${b.desc || ''}</p>
           </figcaption>`;
-        gallery.appendChild(fig);
+        target.appendChild(fig);
       });
     }
 
-    function filterAndRender(){
+    function filterAndRenderBosses() {
       const q = (search.value || '').toLowerCase();
       const base = [...BOSSES];
-      base.sort((a,b)=> asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+      base.sort((a, b) => asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
       const filtered = base.filter(b => b.name.toLowerCase().includes(q));
-      render(filtered);
+      renderTileList(gallery, filtered);
     }
 
-    search.addEventListener('input', filterAndRender);
-    sortBtn.addEventListener('click', () => { asc = !asc; sortBtn.textContent = asc ? 'Sortuj A→Z' : 'Sortuj Z→A'; filterAndRender(); });
+    search.addEventListener('input', filterAndRenderBosses);
+    sortBtn.addEventListener('click', () => { asc = !asc; sortBtn.textContent = asc ? 'Sortuj A→Z' : 'Sortuj Z→A'; filterAndRenderBosses(); });
 
+    /* ===== Amulety: render + filtr/sort ===== */
+    const charmSearch = document.getElementById('charmSearch');
+    const charmSort = document.getElementById('charmSort');
+    const charmFragile = document.getElementById('charmFragile');
+    const charmGallery = document.getElementById('charmGallery');
 
-    filterAndRender();
+    function renderCharms() {
+      const q = (charmSearch.value || '').toLowerCase();
+      const onlyFragile = charmFragile.checked;
+      let list = CHARMS.filter(c => c.name.toLowerCase().includes(q));
+      if (onlyFragile) list = list.filter(c => c.tag === 'fragile');
+
+      const [key, dir] = charmSort.value.split('-'); // name/cost + asc/desc
+      list.sort((a, b) => {
+        const A = key === 'name' ? a.name : a.cost;
+        const B = key === 'name' ? b.name : b.cost;
+        const cmp = (A > B) ? 1 : (A < B) ? -1 : 0;
+        return dir === 'asc' ? cmp : -cmp;
+      });
+
+      charmGallery.innerHTML = '';
+      list.forEach(c => {
+        const fig = document.createElement('figure');
+        fig.className = 'tile';
+        fig.innerHTML = `
+          <img loading="lazy" src="${c.img || '/Img/Charms/_placeholder.png'}" alt="Amulet ${c.name}" onerror="this.src='images/placeholder-charm.jpg'"/>
+          <figcaption class="pad">
+            <h4>${c.name}</h4>
+            <p>Notches: ${c.cost} • <span class="muted">${c.desc}</span></p>
+          </figcaption>`;
+        charmGallery.appendChild(fig);
+      });
+    }
+    charmSearch.addEventListener('input', renderCharms);
+    charmSort.addEventListener('change', renderCharms);
+    charmFragile.addEventListener('change', renderCharms);
+
+    /* ===== Panteony: akordeon-karty ===== */
+    const pantheonList = document.getElementById('pantheonList');
+    function renderPantheons() {
+      pantheonList.innerHTML = '';
+      PANTHEONS.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${p.img || '/Img/Pantheons/_placeholder.png'}" alt="${p.title}" onerror="this.src='images/placeholder-pantheon.jpg'"/>
+          <div class="pad">
+            <div class="chip">Godhome</div>
+            <h3 style="margin:10px 0 6px">${p.title}</h3>
+            <p class="muted" style="margin:0 0 8px">${p.desc}</p>
+            <details>
+              <summary>Lista walk</summary>
+              <p class="muted" style="margin-top:8px">${p.bosses}</p>
+            </details>
+          </div>`;
+        pantheonList.appendChild(card);
+      });
+    }
+
+    /* ===== Koloseum: tabela ===== */
+    const colosseumTbody = document.getElementById('colosseumTbody');
+    function renderColosseum() {
+      colosseumTbody.innerHTML = '';
+      COLOSSEUM.forEach((t, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${t.trial}</td><td>${t.desc}</td><td>${t.reward}</td><td>${t.note}</td>`;
+        colosseumTbody.appendChild(tr);
+      });
+    }
+
+    /* ===== Inicjalizacja ===== */
+    filterAndRenderBosses();
+    renderCharms();
+    renderPantheons();
+    renderColosseum();
+
+    /* ===== Ułatwienia klawiatury ===== */
+    // Szybkie fokusy: / dla wyszukiwarki bossów, ? dla amuletów
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey) { e.preventDefault(); document.getElementById('bossSearch').focus(); }
+      if (e.key === '?' && !e.ctrlKey && !e.metaKey) { e.preventDefault(); document.getElementById('charmSearch').focus(); }
+    });
   </script>
 </body>
+
 </html>

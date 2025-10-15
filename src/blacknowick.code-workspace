@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "../../blacknowick"
+		},
+		{
+			"path": "../../../../../MyProjects/Scorpion Cursor"
+		},
+		{
+			"path": "../../../../../MyProjects/toast catcher game"
+		},
+		{
+			"path": "../../../../../MyProjects/Uçak"
+		},
+		{
+			"path": "../../../../../MyProjects/Netflix İntro"
+		},
+		{
+			"path": "../../../../../MyProjects/Whale"
+		},
+		{
+			"path": "../../../../../MyProjects/CSS Heart Switch"
+		},
+		{
+			"path": "../../../../../MyProjects/Login Laser Eye"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Programowanie"
+	}
+}

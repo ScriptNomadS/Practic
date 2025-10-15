@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Интерактивная карта Hollow Knight (vanilla JS)</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #121923ee;
+      --text: #e6eef7;
+      --muted: #9fb0c6;
+      --accent: #6aa9ff;
+      --stroke: #1f2a38;
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .app { display: grid; grid-template-columns: 320px 1fr; height: 100%; }
+    .sidebar { background: var(--panel); border-right: 1px solid var(--stroke); padding: 14px; overflow: auto; }
+    .sidebar h1 { font-size: 18px; margin: 0 0 8px; }
+    .sidebar .hint { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+    .control { margin: 12px 0; }
+    .search { display: flex; gap: 8px; }
+    .search input { flex: 1; padding: 10px 12px; border: 1px solid var(--stroke); background: #0e141c; color: var(--text); border-radius: 10px; }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--stroke); border-radius:999px; background:#0e141c; cursor:pointer; user-select:none; }
+    .pill input { accent-color: var(--accent); }
+    .pills { display:flex; flex-wrap: wrap; gap:8px; }
+
+    /* Map area */
+    .map-wrap { position: relative; overflow: hidden; background: #0a0f15; }
+    .map { width: 100%; height: 100%; position: relative; touch-action: none; cursor: grab; }
+    .map:active { cursor: grabbing; }
+    #viewport { position: absolute; left:0; top:0; transform-origin: 0 0; }
+    #mapImage { display:block; max-width:none; user-select:none; -webkit-user-drag: none; pointer-events: none; }
+    #overlay { position:absolute; left:0; top:0; pointer-events:none; }
+
+    /* Controls */
+    .zoom-controls { position: absolute; right: 14px; top: 14px; display:flex; flex-direction:column; gap:8px; z-index:10; }
+    .btn { background:#0f1620; border:1px solid var(--stroke); color:var(--text); padding:10px; border-radius:10px; box-shadow: var(--shadow); cursor:pointer; }
+    .btn:hover { border-color:#2b3b52; }
+
+    /* Marker styles */
+    .marker { pointer-events: auto; }
+    .m { filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+    .type-bench { fill:#67e8f9; stroke:#0e7490; }
+    .type-stag { fill:#f59e0b; stroke:#92400e; }
+    .type-boss { fill:#f43f5e; stroke:#991b1b; }
+    .type-geo { fill:#22c55e; stroke:#14532d; }
+    .type-mask { fill:#a78bfa; stroke:#5b21b6; }
+
+    .tooltip { position: absolute; transform: translate(-50%, -140%); background:#111827; border:1px solid #273244; color:#e5e7eb; padding:8px 10px; border-radius:10px; white-space:nowrap; pointer-events:none; opacity:0; transition: opacity .12s ease; font-size:12px; }
+    .tooltip.visible { opacity:1; }
+
+    .card { margin-top:16px; padding:12px; border:1px solid var(--stroke); border-radius:12px; background:#0f1620; }
+    .card h3 { margin:0 0 6px; font-size:15px; }
+    .muted { color: var(--muted); }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { height: 38vh; }
+      .map-wrap { height: 62vh; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1>Карта Hollow Knight</h1>
+      <div class="hint">Подложите своё изображение карты (большой PNG/JPG) и добавляйте точки.
+        В демо ни один графический ассет игры не включён.</div>
+
+      <div class="control search">
+        <input id="search" type="search" placeholder="Поиск точек… (например, bench, Hornet, City)" />
+        <button class="btn" id="resetBtn" title="Сбросить вид">Сброс</button>
+      </div>
+
+      <div class="control">
+        <div class="muted" style="margin-bottom:6px">Слои</div>
+        <div class="pills" id="layers"></div>
+      </div>
+
+      <div class="card" id="infoCard" hidden>
+        <h3 id="infoTitle"></h3>
+        <div class="muted" id="infoType"></div>
+        <p id="infoDesc" style="margin:8px 0 0"></p>
+      </div>
+
+      <div class="card">
+        <h3>Как внедрить</h3>
+        <ol style="padding-left:18px; margin:6px 0">
+          <li>Сохраните этот файл как <code>hk-map.html</code>.</li>
+          <li>Положите рядом свою картинку карты как <code>map.png</code> (или замените путь ниже).</li>
+          <li>Отредактируйте массив <code>MARKERS</code> или подключите <code>markers.json</code>.</li>
+          <li>Вставьте <code>&lt;iframe src="hk-map.html" ...&gt;</code> на сайт или внедрите как виджет.</li>
+        </ol>
+      </div>
+    </aside>
+
+    <main class="map-wrap">
+      <div id="map" class="map" aria-label="Интерактивная карта">
+        <div id="viewport">
+          <img id="mapImage" src="map.png" alt="Hollow Knight map placeholder" />
+          <svg id="overlay"></svg>
+        </div>
+        <div class="zoom-controls">
+          <button class="btn" id="zoomIn">＋</button>
+          <button class="btn" id="zoomOut">－</button>
+          <button class="btn" id="zoomFit" title="Подогнать">⤢</button>
+        </div>
+        <div id="tooltip" class="tooltip"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ====== ДАННЫЕ (пример) ======
+    // Единицы координат — пиксели исходного изображения карты (naturalWidth/Height)
+    const MARKERS = [
+      { id: 'm1', name: 'Bench — Dirtmouth', type: 'bench', x: 820, y: 340, desc: 'Скамейка в Дёртмауте.' },
+      { id: 'm2', name: 'Stag Station — City of Tears', type: 'stag', x: 2140, y: 1320, desc: 'Станция жуков в Городе Слёз.' },
+      { id: 'm3', name: 'Boss — Hornet (Greenpath)', type: 'boss', x: 1560, y: 980, desc: 'Бой с Хорнет на Тропе Зелени.' },
+      { id: 'm4', name: 'Geo Rock', type: 'geo', x: 1750, y: 1520, desc: 'Жилы гео.' },
+      { id: 'm5', name: 'Mask Shard', type: 'mask', x: 980, y: 1260, desc: 'Осколок маски.' }
+    ];
+
+    const TYPES = [
+      { key: 'bench', label: 'Скамейки' },
+      { key: 'stag', label: 'Станции жуков' },
+      { key: 'boss', label: 'Боссы' },
+      { key: 'geo',  label: 'Гео' },
+      { key: 'mask', label: 'Осколки маски' },
+    ];
+
+    // ====== СОСТОЯНИЕ ПАНОРАМИРОВАНИЯ/ЗУМА ======
+    const mapEl = document.getElementById('map');
+    const viewportEl = document.getElementById('viewport');
+    const imgEl = document.getElementById('mapImage');
+    const overlayEl = document.getElementById('overlay');
+    const tooltipEl = document.getElementById('tooltip');
+    const infoCard = document.getElementById('infoCard');
+    const infoTitle = document.getElementById('infoTitle');
+    const infoType = document.getElementById('infoType');
+    const infoDesc = document.getElementById('infoDesc');
+
+    let imgW = 4096, imgH = 2304; // будут обновлены после загрузки изображения
+    let scale = 0.5, minScale = 0.2, maxScale = 3;
+    let tx = 0, ty = 0; // translate
+
+    let isPanning = false; let startX=0, startY=0; let startTx=0, startTy=0;
+
+    function applyTransform() {
+      viewportEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+      overlayEl.setAttribute('width', imgW);
+      overlayEl.setAttribute('height', imgH);
+      overlayEl.style.width = imgW + 'px';
+      overlayEl.style.height = imgH + 'px';
+    }
+
+    function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
+
+    function zoomAt(clientX, clientY, dz){
+      const rect = mapEl.getBoundingClientRect();
+      const x = (clientX - rect.left - tx) / scale; // координата в системе изображения
+      const y = (clientY - rect.top - ty) / scale;
+      const newScale = clamp(scale * dz, minScale, maxScale);
+      // фиксируем точку под курсором
+      tx = clientX - rect.left - x * newScale;
+      ty = clientY - rect.top - y * newScale;
+      scale = newScale;
+      constrainToBounds();
+      applyTransform();
+      updateHash();
+    }
+
+    function centerOn(x, y, targetScale = Math.max(minScale, Math.min(1.2, maxScale))) {
+      const rect = mapEl.getBoundingClientRect();
+      scale = clamp(targetScale, minScale, maxScale);
+      tx = rect.width/2 - x * scale;
+      ty = rect.height/2 - y * scale;
+      constrainToBounds();
+      applyTransform();
+      updateHash();
+    }
+
+    function fitToScreen() {
+      const rect = mapEl.getBoundingClientRect();
+      const sx = rect.width / imgW;
+      const sy = rect.height / imgH;
+      scale = clamp(Math.min(sx, sy), minScale, maxScale);
+      tx = (rect.width - imgW * scale) / 2;
+      ty = (rect.height - imgH * scale) / 2;
+      applyTransform();
+      updateHash();
+    }
+
+    function constrainToBounds(){
+      const rect = mapEl.getBoundingClientRect();
+      const maxTx = 0;
+      const maxTy = 0;
+      const minTx = rect.width - imgW * scale;
+      const minTy = rect.height - imgH * scale;
+      tx = clamp(tx, minTx, maxTx);
+      ty = clamp(ty, minTy, maxTy);
+    }
+
+    // ====== РЕНДЕР ТОЧЕК ======
+    const LAYER_STATE = new Set(TYPES.map(t=>t.key));
+
+    function renderLayerToggles(){
+      const layersEl = document.getElementById('layers');
+      layersEl.innerHTML = '';
+      TYPES.forEach(t => {
+        const id = `layer-${t.key}`;
+        const w = document.createElement('label');
+        w.className = 'pill';
+        w.innerHTML = `<input type="checkbox" id="${id}" checked /> <span>${t.label}</span>`;
+        w.querySelector('input').addEventListener('change', e => {
+          if(e.target.checked) LAYER_STATE.add(t.key); else LAYER_STATE.delete(t.key);
+          drawMarkers();
+        });
+        layersEl.appendChild(w);
+      });
+    }
+
+    function drawMarkers(filterText = document.getElementById('search').value.trim().toLowerCase()){
+      overlayEl.innerHTML = '';
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      overlayEl.appendChild(g);
+
+      const q = filterText;
+      MARKERS.filter(m => LAYER_STATE.has(m.type) && (!q || m.name.toLowerCase().includes(q)))
+        .forEach(m => {
+          const node = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          node.classList.add('marker');
+          node.setAttribute('data-id', m.id);
+          node.innerHTML = `
+            <circle class="m type-${m.type}" cx="${m.x}" cy="${m.y}" r="10" stroke-width="3" />
+          `;
+          // события
+          node.addEventListener('mouseenter', () => showTooltip(m));
+          node.addEventListener('mouseleave', hideTooltip);
+          node.addEventListener('click', () => { showInfo(m); centerOn(m.x, m.y, Math.max(scale, 1.2)); });
+          g.appendChild(node);
+        });
+    }
+
+    function showTooltip(m){
+      const pt = imgToClient(m.x, m.y);
+      tooltipEl.textContent = m.name;
+      tooltipEl.style.left = pt.x + 'px';
+      tooltipEl.style.top = pt.y + 'px';
+      tooltipEl.classList.add('visible');
+    }
+    function hideTooltip(){ tooltipEl.classList.remove('visible'); }
+
+    function showInfo(m){
+      infoTitle.textContent = m.name;
+      infoType.textContent = 'Тип: ' + m.type;
+      infoDesc.textContent = m.desc || '';
+      infoCard.hidden = false;
+    }
+
+    function imgToClient(ix, iy){
+      const rect = mapEl.getBoundingClientRect();
+      return {
+        x: rect.left + tx + ix * scale,
+        y: rect.top + ty + iy * scale
+      };
+    }
+
+    // ====== ВЗАИМОДЕЙСТВИЕ ======
+    mapEl.addEventListener('pointerdown', (e)=>{
+      if(e.button !== 0) return; // только ЛКМ/тап
+      isPanning = true; startX = e.clientX; startY = e.clientY; startTx = tx; startTy = ty; mapEl.setPointerCapture(e.pointerId);
+    });
+    mapEl.addEventListener('pointermove', (e)=>{
+      if(!isPanning) return;
+      const dx = e.clientX - startX; const dy = e.clientY - startY;
+      tx = startTx + dx; ty = startTy + dy; constrainToBounds(); applyTransform(); hideTooltip();
+    });
+    mapEl.addEventListener('pointerup', ()=>{ isPanning=false; updateHash(); });
+    mapEl.addEventListener('pointercancel', ()=>{ isPanning=false; });
+
+    mapEl.addEventListener('wheel', (e)=>{
+      e.preventDefault();
+      const dz = e.deltaY < 0 ? 1.1 : 0.9;
+      zoomAt(e.clientX, e.clientY, dz);
+    }, { passive:false });
+
+    document.getElementById('zoomIn').onclick = ()=> zoomAt(mapEl.clientWidth/2, mapEl.clientHeight/2, 1.2);
+    document.getElementById('zoomOut').onclick = ()=> zoomAt(mapEl.clientWidth/2, mapEl.clientHeight/2, 0.8);
+    document.getElementById('zoomFit').onclick = fitToScreen;
+    document.getElementById('resetBtn').onclick = ()=>{ fitToScreen(); document.getElementById('search').value=''; drawMarkers(''); };
+
+    document.getElementById('search').addEventListener('input', (e)=> drawMarkers(e.target.value.trim().toLowerCase()));
+
+    // ====== URL HASH (сохранение вида) ======
+    function updateHash(){
+      const cx = (-tx + mapEl.clientWidth/2) / scale; // центр X в координатах изображения
+      const cy = (-ty + mapEl.clientHeight/2) / scale;
+      const hash = new URLSearchParams({ z: scale.toFixed(3), cx: Math.round(cx), cy: Math.round(cy) });
+      location.hash = hash.toString();
+    }
+    function readHash(){
+      if(!location.hash) return null;
+      const p = new URLSearchParams(location.hash.slice(1));
+      const z = parseFloat(p.get('z')||'NaN');
+      const cx = parseFloat(p.get('cx')||'NaN');
+      const cy = parseFloat(p.get('cy')||'NaN');
+      if(Number.isFinite(z) && Number.isFinite(cx) && Number.isFinite(cy)) return {z, cx, cy};
+      return null;
+    }
+
+    // ====== ИНИЦИАЛИЗАЦИЯ ======
+    function init(){
+      renderLayerToggles();
+      drawMarkers('');
+      fitToScreen();
+      const h = readHash();
+      if(h){
+        scale = clamp(h.z, minScale, maxScale);
+        const rect = mapEl.getBoundingClientRect();
+        tx = rect.width/2 - h.cx * scale;
+        ty = rect.height/2 - h.cy * scale;
+        constrainToBounds();
+        applyTransform();
+      }
+    }
+
+    imgEl.addEventListener('load', ()=>{
+      imgW = imgEl.naturalWidth || imgEl.width; imgH = imgEl.naturalHeight || imgEl.height;
+      overlayEl.setAttribute('viewBox', `0 0 ${imgW} ${imgH}`);
+      init();
+    });
+
+    // Если файл карты не найден, показываем заглушку (одноцветник нужного размера)
+    imgEl.addEventListener('error', ()=>{
+      console.warn('map.png не найден — используем заглушку');
+      const ph = document.createElement('canvas'); ph.width = imgW; ph.height = imgH; const ctx = ph.getContext('2d');
+      ctx.fillStyle = '#0d1320'; ctx.fillRect(0,0,imgW,imgH);
+      ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 8; ctx.strokeRect(20,20,imgW-40,imgH-40);
+      ctx.fillStyle = '#94a3b8'; ctx.font = '28px system-ui'; ctx.fillText('Положите map.png рядом с HTML', 40, 60);
+      imgEl.src = ph.toDataURL();
+      overlayEl.setAttribute('viewBox', `0 0 ${imgW} ${imgH}`);
+      init();
+    });
+
+    // ====== ДОБАВЛЕНИЕ ТОЧКИ КЛИКОМ (опционально) ======
+    // Alt+клик по карте — лог координат (удобно для разметки)
+    mapEl.addEventListener('click', (e)=>{
+      if(!e.altKey) return;
+      const rect = mapEl.getBoundingClientRect();
+      const ix = Math.round((e.clientX - rect.left - tx) / scale);
+      const iy = Math.round((e.clientY - rect.top - ty) / scale);
+      console.log('Координаты для MARKERS:', ix, iy);
+      // В реальном проекте можно отправлять эти данные на сервер
+    });
+  </script>
+</body>
+</html>
